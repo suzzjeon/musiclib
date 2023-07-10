@@ -8,6 +8,8 @@ const Home = () => {
   const [title, setTitle] = useState("");
   const [youtubeUrl, setYoutubeUrl] = useState("");
   const [musicList, setMusicList] = useState([]);
+  const [editMode, setEditMode] = useState(false);
+  const [editMusicId, setEditMusicId] = useState(null);
 
   useEffect(() => {
     fetchMusicList();
@@ -26,12 +28,23 @@ const Home = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.post("/musics", {
-        artist,
-        title,
-        youtubeUrl,
-      });
-      console.log("Music added:", response.data);
+      if (editMode) {
+        await api.put(`/musics/${editMusicId}`, {
+          artist,
+          title,
+          youtubeUrl,
+        });
+        console.log("Music updated:", editMusicId);
+        setEditMode(false);
+        setEditMusicId(null);
+      } else {
+        const response = await api.post("/musics", {
+          artist,
+          title,
+          youtubeUrl,
+        });
+        console.log("Music added:", response.data);
+      }
       setArtist("");
       setTitle("");
       setYoutubeUrl("");
@@ -39,6 +52,22 @@ const Home = () => {
     } catch (error) {
       console.error("Error adding music:", error);
     }
+  };
+
+  const handleEdit = (music) => {
+    setArtist(music.artist);
+    setTitle(music.title);
+    setYoutubeUrl(music.youtubeUrl);
+    setEditMode(true);
+    setEditMusicId(music.id);
+  };
+
+  const handleCancelEdit = () => {
+    setEditMode(false);
+    setEditMusicId(null);
+    setArtist("");
+    setTitle("");
+    setYoutubeUrl("");
   };
 
   const redirectToYoutube = (url) => {
@@ -49,7 +78,7 @@ const Home = () => {
     try {
       await api.delete(`/musics/${musicId}`);
       console.log("Music deleted:", musicId);
-      fetchMusicList(); // 음악 삭제 후 리스트 다시 가져오기
+      fetchMusicList();
     } catch (error) {
       console.error("Error deleting music:", error);
     }
@@ -59,7 +88,7 @@ const Home = () => {
     <Layout>
       <StContainer>
         <StMain>
-          <h1>Add Music</h1>
+          <h1>{editMode ? "Edit Music" : "Add Music"}</h1>
           <form onSubmit={handleSubmit}>
             <input
               type="text"
@@ -79,7 +108,14 @@ const Home = () => {
               value={youtubeUrl}
               onChange={(e) => setYoutubeUrl(e.target.value)}
             />
-            <button type="submit">Add Music</button>
+            <button type="submit">
+              {editMode ? "Update Music" : "Add Music"}
+            </button>
+            {editMode && (
+              <button type="button" onClick={handleCancelEdit}>
+                Cancel
+              </button>
+            )}
           </form>
 
           <h2>Music List</h2>
@@ -89,6 +125,7 @@ const Home = () => {
               <button onClick={() => redirectToYoutube(music.youtubeUrl)}>
                 들으러 가기
               </button>
+              <button onClick={() => handleEdit(music)}>수정</button>
               <button onClick={() => handleDelete(music.id)}>삭제</button>
             </MusicCard>
           ))}
