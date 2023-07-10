@@ -2,11 +2,12 @@ import Layout from "../components/Layout";
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import api from "../axios/api";
+import useInput from "../hooks/useInput";
 
 const Home = () => {
-  const [artist, setArtist] = useState("");
-  const [title, setTitle] = useState("");
-  const [youtubeUrl, setYoutubeUrl] = useState("");
+  const artistInput = useInput("");
+  const titleInput = useInput("");
+  const youtubeUrlInput = useInput("");
   const [musicList, setMusicList] = useState([]);
   const [editMode, setEditMode] = useState(false);
   const [editMusicId, setEditMusicId] = useState(null);
@@ -30,24 +31,24 @@ const Home = () => {
     try {
       if (editMode) {
         await api.put(`/musics/${editMusicId}`, {
-          artist,
-          title,
-          youtubeUrl,
+          artist: artistInput.value,
+          title: titleInput.value,
+          youtubeUrl: youtubeUrlInput.value,
         });
         console.log("Music updated:", editMusicId);
         setEditMode(false);
         setEditMusicId(null);
       } else {
         const response = await api.post("/musics", {
-          artist,
-          title,
-          youtubeUrl,
+          artist: artistInput.value,
+          title: titleInput.value,
+          youtubeUrl: youtubeUrlInput.value,
         });
         console.log("Music added:", response.data);
       }
-      setArtist("");
-      setTitle("");
-      setYoutubeUrl("");
+      artistInput.reset();
+      titleInput.reset();
+      youtubeUrlInput.reset();
       fetchMusicList();
     } catch (error) {
       console.error("Error adding music:", error);
@@ -55,9 +56,9 @@ const Home = () => {
   };
 
   const handleEdit = (music) => {
-    setArtist(music.artist);
-    setTitle(music.title);
-    setYoutubeUrl(music.youtubeUrl);
+    artistInput.setValue(music.artist);
+    titleInput.setValue(music.title);
+    youtubeUrlInput.setValue(music.youtubeUrl);
     setEditMode(true);
     setEditMusicId(music.id);
   };
@@ -65,9 +66,9 @@ const Home = () => {
   const handleCancelEdit = () => {
     setEditMode(false);
     setEditMusicId(null);
-    setArtist("");
-    setTitle("");
-    setYoutubeUrl("");
+    artistInput.reset();
+    titleInput.reset();
+    youtubeUrlInput.reset();
   };
 
   const redirectToYoutube = (url) => {
@@ -90,24 +91,9 @@ const Home = () => {
         <StMain>
           <h1>{editMode ? "Edit Music" : "Add Music"}</h1>
           <form onSubmit={handleSubmit}>
-            <input
-              type="text"
-              placeholder="Artist"
-              value={artist}
-              onChange={(e) => setArtist(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="Title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="YouTube URL"
-              value={youtubeUrl}
-              onChange={(e) => setYoutubeUrl(e.target.value)}
-            />
+            <input type="text" placeholder="Artist" {...artistInput} />
+            <input type="text" placeholder="Title" {...titleInput} />
+            <input type="text" placeholder="YouTube URL" {...youtubeUrlInput} />
             <button type="submit">
               {editMode ? "Update Music" : "Add Music"}
             </button>
