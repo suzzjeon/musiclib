@@ -1,0 +1,22 @@
+{
+  "musics": [
+    {
+      "artist": "Mark",
+      "title": "Golden Hour",
+      "youtubeUrl": "https://youtu.be/EUsUqd20c_k",
+      "id": 1
+    },
+    {
+      "artist": "NCT U",
+      "title": "Misfit",
+      "youtubeUrl": "https://www.youtube.com/watch?v=0rLwa6tueDQ",
+      "id": 2
+    },
+    {
+      "artist": "SHINee",
+      "title": "HARD",
+      "youtubeUrl": "https://youtu.be/lrDeQ4sF0zo",
+      "id": 3
+    }
+  ]
+}
