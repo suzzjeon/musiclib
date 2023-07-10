@@ -45,6 +45,16 @@ const Home = () => {
     window.open(url, "_blank");
   };
 
+  const handleDelete = async (musicId) => {
+    try {
+      await api.delete(`/musics/${musicId}`);
+      console.log("Music deleted:", musicId);
+      fetchMusicList(); // 음악 삭제 후 리스트 다시 가져오기
+    } catch (error) {
+      console.error("Error deleting music:", error);
+    }
+  };
+
   return (
     <Layout>
       <StContainer>
@@ -79,6 +89,7 @@ const Home = () => {
               <button onClick={() => redirectToYoutube(music.youtubeUrl)}>
                 들으러 가기
               </button>
+              <button onClick={() => handleDelete(music.id)}>삭제</button>
             </MusicCard>
           ))}
         </StMain>
