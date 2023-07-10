@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import api from "../axios/api";
 import useInput from "../hooks/useInput";
+import Button from "../components/Button";
 
 const Home = () => {
   const artistInput = useInput("");
@@ -94,13 +95,15 @@ const Home = () => {
             <input type="text" placeholder="Artist" {...artistInput} />
             <input type="text" placeholder="Title" {...titleInput} />
             <input type="text" placeholder="YouTube URL" {...youtubeUrlInput} />
-            <button type="submit">
+            <Button type="submit">
+              {" "}
               {editMode ? "Update Music" : "Add Music"}
-            </button>
+            </Button>
             {editMode && (
-              <button type="button" onClick={handleCancelEdit}>
+              <Button type="button" onClick={handleCancelEdit}>
+                {" "}
                 Cancel
-              </button>
+              </Button>
             )}
           </form>
 
@@ -108,11 +111,12 @@ const Home = () => {
           {musicList.map((music) => (
             <MusicCard key={music.id}>
               {music.artist} - {music.title}{" "}
-              <button onClick={() => redirectToYoutube(music.youtubeUrl)}>
+              <Button onClick={() => redirectToYoutube(music.youtubeUrl)}>
+                {" "}
                 들으러 가기
-              </button>
-              <button onClick={() => handleEdit(music)}>수정</button>
-              <button onClick={() => handleDelete(music.id)}>삭제</button>
+              </Button>
+              <Button onClick={() => handleEdit(music)}>수정</Button>{" "}
+              <Button onClick={() => handleDelete(music.id)}>삭제</Button>{" "}
             </MusicCard>
           ))}
         </StMain>
