@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import api from "../axios/api";
+import Layout from "../components/Layout";
 
 const Detail = () => {
   const { id } = useParams();
@@ -25,23 +26,25 @@ const Detail = () => {
   }
 
   return (
-    <Container>
-      <h1>Music Detail</h1>
-      <MusicInfo>
-        <div>
-          <h2>Artist</h2>
-          <p>{music.artist}</p>
-        </div>
-        <div>
-          <h2>Title</h2>
-          <p>{music.title}</p>
-        </div>
-        <div>
-          <h2>YouTube URL</h2>
-          <p>{music.youtubeUrl}</p>
-        </div>
-      </MusicInfo>
-    </Container>
+    <Layout>
+      <Container>
+        <h1>Music Detail</h1>
+        <MusicInfo>
+          <div>
+            <h2>Artist</h2>
+            <p>{music.artist}</p>
+          </div>
+          <div>
+            <h2>Title</h2>
+            <p>{music.title}</p>
+          </div>
+          <div>
+            <h2>YouTube URL</h2>
+            <p>{music.youtubeUrl}</p>
+          </div>
+        </MusicInfo>
+      </Container>
+    </Layout>
   );
 };
 
