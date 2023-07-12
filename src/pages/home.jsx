@@ -29,6 +29,18 @@ const Home = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!artistInput.value || !titleInput.value || !youtubeUrlInput.value) {
+      alert("모든 항목을 입력해주세요.");
+      return;
+    }
+
+    const youtubeUrlPattern = /^(https?:\/\/)?(www\.)?youtu\.be\/[\w-]{11}$/;
+    if (!youtubeUrlPattern.test(youtubeUrlInput.value)) {
+      alert("유효한 YouTube URL을 입력해주세요.");
+      return;
+    }
+
     try {
       if (editMode) {
         await api.put(`/musics/${editMusicId}`, {
@@ -96,12 +108,10 @@ const Home = () => {
             <input type="text" placeholder="Title" {...titleInput} />
             <input type="text" placeholder="YouTube URL" {...youtubeUrlInput} />
             <Button type="submit">
-              {" "}
               {editMode ? "Update Music" : "Add Music"}
             </Button>
             {editMode && (
               <Button type="button" onClick={handleCancelEdit}>
-                {" "}
                 Cancel
               </Button>
             )}
@@ -112,11 +122,10 @@ const Home = () => {
             <MusicCard key={music.id}>
               {music.artist} - {music.title}{" "}
               <Button onClick={() => redirectToYoutube(music.youtubeUrl)}>
-                {" "}
                 들으러 가기
               </Button>
-              <Button onClick={() => handleEdit(music)}>수정</Button>{" "}
-              <Button onClick={() => handleDelete(music.id)}>삭제</Button>{" "}
+              <Button onClick={() => handleEdit(music)}>수정</Button>
+              <Button onClick={() => handleDelete(music.id)}>삭제</Button>
             </MusicCard>
           ))}
         </StMain>

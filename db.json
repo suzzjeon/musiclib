@@ -19,10 +19,16 @@
       "id": 3
     },
     {
-      "artist": "",
-      "title": "",
-      "youtubeUrl": "",
-      "id": 4
+      "artist": "WOODZ",
+      "title": "Drowning",
+      "youtubeUrl": "https://youtu.be/NbKH4iZqq1Y",
+      "id": 6
+    },
+    {
+      "artist": "NCT DREAM",
+      "title": "Broken Melodies",
+      "youtubeUrl": "https://youtu.be/PB2O-4WNQpw",
+      "id": 7
     }
   ]
 }
