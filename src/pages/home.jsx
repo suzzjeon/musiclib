@@ -2,16 +2,14 @@ import Layout from "../components/Layout";
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import api from "../axios/api";
-import useInput from "../hooks/useInput";
 import Button from "../components/Button";
+import SubmitForm from "../components/home/SubmitForm";
+import EditForm from "../components/home/EditForm";
 
 const Home = () => {
-  const artistInput = useInput("");
-  const titleInput = useInput("");
-  const youtubeUrlInput = useInput("");
   const [musicList, setMusicList] = useState([]);
   const [editMode, setEditMode] = useState(false);
-  const [editMusicId, setEditMusicId] = useState(null);
+  const [editMusic, setEditMusic] = useState(null);
 
   useEffect(() => {
     fetchMusicList();
@@ -27,61 +25,29 @@ const Home = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!artistInput.value || !titleInput.value || !youtubeUrlInput.value) {
-      alert("모든 항목을 입력해주세요.");
-      return;
-    }
-
-    const youtubeUrlPattern = /^(https?:\/\/)?(www\.)?youtu\.be\/[\w-]{11}$/;
-    if (!youtubeUrlPattern.test(youtubeUrlInput.value)) {
-      alert("유효한 YouTube URL을 입력해주세요.");
-      return;
-    }
-
+  const handleAddMusic = async (newMusic) => {
     try {
-      if (editMode) {
-        await api.put(`/musics/${editMusicId}`, {
-          artist: artistInput.value,
-          title: titleInput.value,
-          youtubeUrl: youtubeUrlInput.value,
-        });
-        console.log("Music updated:", editMusicId);
-        setEditMode(false);
-        setEditMusicId(null);
-      } else {
-        const response = await api.post("/musics", {
-          artist: artistInput.value,
-          title: titleInput.value,
-          youtubeUrl: youtubeUrlInput.value,
-        });
-        console.log("Music added:", response.data);
-      }
-      artistInput.reset();
-      titleInput.reset();
-      youtubeUrlInput.reset();
+      await api.post("/musics", newMusic);
+      console.log("Music added:", newMusic);
       fetchMusicList();
     } catch (error) {
       console.error("Error adding music:", error);
     }
   };
 
-  const handleEdit = (music) => {
-    artistInput.setValue(music.artist);
-    titleInput.setValue(music.title);
-    youtubeUrlInput.setValue(music.youtubeUrl);
-    setEditMode(true);
-    setEditMusicId(music.id);
+  const handleEditMusic = async (updatedMusic) => {
+    try {
+      await api.put(`/musics/${updatedMusic.id}`, updatedMusic);
+      console.log("Music updated:", updatedMusic);
+      fetchMusicList();
+    } catch (error) {
+      console.error("Error updating music:", error);
+    }
   };
 
   const handleCancelEdit = () => {
     setEditMode(false);
-    setEditMusicId(null);
-    artistInput.reset();
-    titleInput.reset();
-    youtubeUrlInput.reset();
+    setEditMusic(null);
   };
 
   const redirectToYoutube = (url) => {
@@ -103,19 +69,15 @@ const Home = () => {
       <StContainer>
         <StMain>
           <h1>{editMode ? "Edit Music" : "Add Music"}</h1>
-          <form onSubmit={handleSubmit}>
-            <input type="text" placeholder="Artist" {...artistInput} />
-            <input type="text" placeholder="Title" {...titleInput} />
-            <input type="text" placeholder="YouTube URL" {...youtubeUrlInput} />
-            <Button type="submit">
-              {editMode ? "Update Music" : "Add Music"}
-            </Button>
-            {editMode && (
-              <Button type="button" onClick={handleCancelEdit}>
-                Cancel
-              </Button>
-            )}
-          </form>
+          {editMode ? (
+            <EditForm
+              music={editMusic}
+              onEditMusic={handleEditMusic}
+              onCancelEdit={handleCancelEdit}
+            />
+          ) : (
+            <SubmitForm onAddMusic={handleAddMusic} />
+          )}
 
           <h2>Music List</h2>
           {musicList.map((music) => (
@@ -124,7 +86,14 @@ const Home = () => {
               <Button onClick={() => redirectToYoutube(music.youtubeUrl)}>
                 들으러 가기
               </Button>
-              <Button onClick={() => handleEdit(music)}>수정</Button>
+              <Button
+                onClick={() => {
+                  setEditMode(true);
+                  setEditMusic(music);
+                }}
+              >
+                수정
+              </Button>
               <Button onClick={() => handleDelete(music.id)}>삭제</Button>
             </MusicCard>
           ))}
