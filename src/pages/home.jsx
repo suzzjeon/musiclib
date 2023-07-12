@@ -5,6 +5,7 @@ import api from "../axios/api";
 import Button from "../components/Button";
 import SubmitForm from "../components/home/SubmitForm";
 import EditForm from "../components/home/EditForm";
+import { Link } from "react-router-dom"; // react-router-dom에서 Link를 가져옵니다.
 
 const Home = () => {
   const [musicList, setMusicList] = useState([]);
@@ -82,7 +83,9 @@ const Home = () => {
           <h2>Music List</h2>
           {musicList.map((music) => (
             <MusicCard key={music.id}>
-              {music.artist} - {music.title}{" "}
+              <Link to={`/detail/${music.id}`}>
+                {music.artist} - {music.title}
+              </Link>
               <Button onClick={() => redirectToYoutube(music.youtubeUrl)}>
                 들으러 가기
               </Button>
@@ -121,4 +124,12 @@ const MusicCard = styled.div`
   padding: 16px;
   border-radius: 4px;
   margin-bottom: 16px;
+
+  a {
+    text-decoration: none;
+    color: inherit;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 `;

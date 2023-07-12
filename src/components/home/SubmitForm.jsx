@@ -15,11 +15,11 @@ const SubmitForm = ({ onAddMusic }) => {
       return;
     }
 
-    const youtubeUrlPattern = /^(https?:\/\/)?(www\.)?youtu\.be\/[\w-]{11}$/;
-    if (!youtubeUrlPattern.test(youtubeUrlInput.value)) {
-      alert("유효한 YouTube URL을 입력해주세요.");
-      return;
-    }
+    // const youtubeUrlPattern = /^(https?:\/\/)?(www\.)?youtu\.be\/[\w-]{11}$/;
+    // if (!youtubeUrlPattern.test(youtubeUrlInput.value)) {
+    //   alert("유효한 YouTube URL을 입력해주세요.");
+    //   return;
+    // }
 
     onAddMusic({
       artist: artistInput.value,
