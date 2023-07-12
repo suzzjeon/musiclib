@@ -5,7 +5,7 @@ import api from "../axios/api";
 import Button from "../components/Button";
 import SubmitForm from "../components/home/SubmitForm";
 import EditForm from "../components/home/EditForm";
-import { Link } from "react-router-dom"; // react-router-dom에서 Link를 가져옵니다.
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const [musicList, setMusicList] = useState([]);
