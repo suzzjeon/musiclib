@@ -36,9 +36,9 @@ const EditForm = ({ music, onEditMusic, onCancelEdit }) => {
       <input type="text" placeholder="Artist" {...artistInput} />
       <input type="text" placeholder="Title" {...titleInput} />
       <input type="text" placeholder="YouTube URL" {...youtubeUrlInput} />
-      <Button type="submit">Update Music</Button>
+      <Button type="submit">update</Button>
       <Button type="button" onClick={onCancelEdit}>
-        Cancel
+        cancel
       </Button>
     </form>
   );

@@ -6,8 +6,8 @@ const Button = ({ children, ...props }) => {
 };
 
 const StyledButton = styled.button`
-  padding: 8px;
-  font-size: 10px;
+  padding: 5px;
+  font-size: 12px;
   font-weight: 500;
   border: 1px solid gray;
   border-radius: 10px;
@@ -17,7 +17,7 @@ const StyledButton = styled.button`
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #1976d2;
+    background-color: gray;
   }
 
   &:focus {

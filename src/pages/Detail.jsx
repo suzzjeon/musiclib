@@ -29,14 +29,13 @@ const Detail = () => {
   return (
     <Layout>
       <Container>
-        <h1>Music Detail</h1>
         <MusicInfo>
           <div>
-            <h2>Artist</h2>
+            <h2>artist</h2>
             <p>{music.artist}</p>
           </div>
           <div>
-            <h2>Title</h2>
+            <h2>title</h2>
             <p>{music.title}</p>
           </div>
           <YouTubePlayerBox>
@@ -57,7 +56,7 @@ const Container = styled.div`
 const MusicInfo = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
+  gap: 1em;
 `;
 
 const LoadingMessage = styled.p`

@@ -6,7 +6,7 @@ import Button from "../components/Button";
 import SubmitForm from "../components/form/SubmitForm";
 import EditForm from "../components/form/EditForm";
 import { Link } from "react-router-dom";
-import YouTubePlayer from "../components/detail/YouTubePlayer";
+// import YouTubePlayer from "../components/detail/YouTubePlayer";
 
 const Home = () => {
   const [musicList, setMusicList] = useState([]);
@@ -52,9 +52,9 @@ const Home = () => {
     setEditMusic(null);
   };
 
-  // const redirectToYoutube = (url) => {
-  //   window.open(url, "_blank");
-  // };
+  const redirectToYoutube = (url) => {
+    window.open(url, "_blank");
+  };
 
   const handleDelete = async (musicId) => {
     try {
@@ -70,7 +70,7 @@ const Home = () => {
     <Layout>
       <StContainer>
         <StMain>
-          <h1>{editMode ? "Edit Music" : "Add Music"}</h1>
+          <h1>{editMode ? "edit" : "add"}</h1>
           {editMode ? (
             <EditForm
               music={editMusic}
@@ -81,25 +81,25 @@ const Home = () => {
             <SubmitForm onAddMusic={handleAddMusic} />
           )}
 
-          <h2>Music List</h2>
+          <h2>your playlist</h2>
           {musicList.map((music) => (
             <MusicCard key={music.id}>
               <Link to={`/detail/${music.id}`}>
                 {music.artist} - {music.title}
               </Link>
               {/* <YouTubePlayer youtubeUrl={music.youtubeUrl} /> */}
-              {/* <Button onClick={() => redirectToYoutube(music.youtubeUrl)}>
-                들으러 가기
-              </Button> */}
+              <Button onClick={() => redirectToYoutube(music.youtubeUrl)}>
+                listen
+              </Button>
               <Button
                 onClick={() => {
                   setEditMode(true);
                   setEditMusic(music);
                 }}
               >
-                수정
+                edit
               </Button>
-              <Button onClick={() => handleDelete(music.id)}>삭제</Button>
+              <Button onClick={() => handleDelete(music.id)}>delete</Button>
             </MusicCard>
           ))}
         </StMain>

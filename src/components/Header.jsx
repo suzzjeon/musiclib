@@ -13,7 +13,7 @@ const Header = () => {
           navigate("/");
         }}
       />
-      <StTitle>헤더</StTitle>
+      <StTitle>musiclib</StTitle>
     </StContainer>
   );
 };

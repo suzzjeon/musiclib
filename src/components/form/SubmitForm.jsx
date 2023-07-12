@@ -37,7 +37,7 @@ const SubmitForm = ({ onAddMusic }) => {
       <input type="text" placeholder="Artist" {...artistInput} />
       <input type="text" placeholder="Title" {...titleInput} />
       <input type="text" placeholder="YouTube URL" {...youtubeUrlInput} />
-      <Button type="submit">Add Music</Button>
+      <Button type="submit">add music</Button>
     </form>
   );
 };
