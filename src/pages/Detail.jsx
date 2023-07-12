@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import api from "../axios/api";
 import Layout from "../components/Layout";
+import YouTubePlayer from "../components/detail/YouTubePlayer";
 
 const Detail = () => {
   const { id } = useParams();
@@ -38,10 +39,9 @@ const Detail = () => {
             <h2>Title</h2>
             <p>{music.title}</p>
           </div>
-          <div>
-            <h2>YouTube URL</h2>
-            <p>{music.youtubeUrl}</p>
-          </div>
+          <YouTubePlayerBox>
+            <YouTubePlayer youtubeUrl={music.youtubeUrl} />
+          </YouTubePlayerBox>
         </MusicInfo>
       </Container>
     </Layout>
@@ -65,4 +65,11 @@ const LoadingMessage = styled.p`
   font-size: 18px;
   font-weight: bold;
   margin-top: 24px;
+`;
+
+const YouTubePlayerBox = styled.div`
+  display: flex;
+  justify-content: center;
+  position: relative;
+  width: 100%;
 `;

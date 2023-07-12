@@ -3,9 +3,10 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import api from "../axios/api";
 import Button from "../components/Button";
-import SubmitForm from "../components/home/SubmitForm";
-import EditForm from "../components/home/EditForm";
+import SubmitForm from "../components/form/SubmitForm";
+import EditForm from "../components/form/EditForm";
 import { Link } from "react-router-dom";
+import YouTubePlayer from "../components/detail/YouTubePlayer";
 
 const Home = () => {
   const [musicList, setMusicList] = useState([]);
@@ -51,9 +52,9 @@ const Home = () => {
     setEditMusic(null);
   };
 
-  const redirectToYoutube = (url) => {
-    window.open(url, "_blank");
-  };
+  // const redirectToYoutube = (url) => {
+  //   window.open(url, "_blank");
+  // };
 
   const handleDelete = async (musicId) => {
     try {
@@ -86,9 +87,10 @@ const Home = () => {
               <Link to={`/detail/${music.id}`}>
                 {music.artist} - {music.title}
               </Link>
-              <Button onClick={() => redirectToYoutube(music.youtubeUrl)}>
+              {/* <YouTubePlayer youtubeUrl={music.youtubeUrl} /> */}
+              {/* <Button onClick={() => redirectToYoutube(music.youtubeUrl)}>
                 들으러 가기
-              </Button>
+              </Button> */}
               <Button
                 onClick={() => {
                   setEditMode(true);
