@@ -1,0 +1,52 @@
+{
+  "musics": [
+    {
+      "artist": "Mark",
+      "title": "Golden Hour",
+      "youtubeUrl": "https://youtu.be/EUsUqd20c_k",
+      "id": 1
+    },
+    {
+      "artist": "NCT U",
+      "title": "Misfit",
+      "youtubeUrl": "https://www.youtube.com/watch?v=0rLwa6tueDQ",
+      "id": 2
+    },
+    {
+      "artist": "샤이니",
+      "title": "HARD",
+      "youtubeUrl": "https://youtu.be/lrDeQ4sF0zo",
+      "id": 3
+    },
+    {
+      "artist": "WOODZ",
+      "title": "Drowning",
+      "youtubeUrl": "https://youtu.be/NbKH4iZqq1Y",
+      "id": 6
+    },
+    {
+      "artist": "NCT DREAM",
+      "title": "Broken Melodies",
+      "youtubeUrl": "https://youtu.be/PB2O-4WNQpw",
+      "id": 7
+    },
+    {
+      "id": 8,
+      "artist": "NewJeans",
+      "title": "Super Shy",
+      "youtubeUrl": "https://youtu.be/ArmDp-zijuc"
+    },
+    {
+      "artist": "ㅇ",
+      "title": "ㅇ",
+      "youtubeUrl": "ㅇ",
+      "id": 9
+    },
+    {
+      "artist": "ㅇ",
+      "title": "ㅇ",
+      "youtubeUrl": "ㅇ",
+      "id": 10
+    }
+  ]
+}
