@@ -82,26 +82,30 @@ const Home = () => {
           )}
 
           <h2>your playlist</h2>
-          {musicList.map((music) => (
-            <MusicCard key={music.id}>
-              <Link to={`/detail/${music.id}`}>
-                {music.artist} - {music.title}
-              </Link>
-              {/* <YouTubePlayer youtubeUrl={music.youtubeUrl} /> */}
-              <Button onClick={() => redirectToYoutube(music.youtubeUrl)}>
-                listen
-              </Button>
-              <Button
-                onClick={() => {
-                  setEditMode(true);
-                  setEditMusic(music);
-                }}
-              >
-                edit
-              </Button>
-              <Button onClick={() => handleDelete(music.id)}>delete</Button>
-            </MusicCard>
-          ))}
+          <MusicCardContainer>
+            {musicList.map((music) => (
+              <MusicCard key={music.id}>
+                <Link to={`/detail/${music.id}`}>
+                  {music.artist} - {music.title}
+                </Link>
+                {/* <YouTubePlayer youtubeUrl={music.youtubeUrl} /> */}
+                <ButtonContainer>
+                  <Button onClick={() => redirectToYoutube(music.youtubeUrl)}>
+                    listen
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      setEditMode(true);
+                      setEditMusic(music);
+                    }}
+                  >
+                    edit
+                  </Button>
+                  <Button onClick={() => handleDelete(music.id)}>delete</Button>
+                </ButtonContainer>
+              </MusicCard>
+            ))}
+          </MusicCardContainer>
         </StMain>
       </StContainer>
     </Layout>
@@ -121,11 +125,25 @@ const StMain = styled.div`
   gap: 24px;
 `;
 
+const ButtonContainer = styled.div`
+  margin-top: 10px;
+`;
+
+const MusicCardContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, minmax(120px, auto));
+  grid-template-rows: repeat(auto-fill);
+  grid-gap: 15px;
+  min-width: 600px;
+`;
+
 const MusicCard = styled.div`
-  background-color: #f0f0f0;
+  background-color: transparent;
+  border: 1px solid gray;
   padding: 16px;
   border-radius: 4px;
   margin-bottom: 16px;
+  width: 150px;
 
   a {
     text-decoration: none;

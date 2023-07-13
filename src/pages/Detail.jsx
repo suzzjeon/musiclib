@@ -50,13 +50,12 @@ const Detail = () => {
 export default Detail;
 
 const Container = styled.div`
-  padding: 24px;
+  margin: 0 auto;
 `;
 
 const MusicInfo = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1em;
 `;
 
 const LoadingMessage = styled.p`
@@ -67,6 +66,7 @@ const LoadingMessage = styled.p`
 `;
 
 const YouTubePlayerBox = styled.div`
+  margin-top: 20px;
   display: flex;
   justify-content: center;
   position: relative;

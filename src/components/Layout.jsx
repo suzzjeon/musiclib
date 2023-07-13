@@ -16,4 +16,6 @@ export default Layout;
 const StLayout = styled.div`
   height: calc(100vh - 45px);
   padding: 24px;
+  max-width: 800px;
+  margin: 0 auto;
 `;

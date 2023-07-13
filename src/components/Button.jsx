@@ -7,6 +7,7 @@ const Button = ({ children, ...props }) => {
 
 const StyledButton = styled.button`
   padding: 5px;
+  margin: 2px;
   font-size: 12px;
   font-weight: 500;
   border: 1px solid gray;
